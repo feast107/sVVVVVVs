@@ -3,14 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using sVVVVVVs.Core;
 using sVVVVVVs.Interface;
 using sVVVVVVs.Server;
-using sVVVVVVs.Server.Model;
 using sVVVVVVs.Server.Service;
 
 namespace sVVVVVVs
@@ -23,7 +18,7 @@ namespace sVVVVVVs
         {
             services.AddSingleton<IRoomService, RoomService>();
             services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton(typeof(IMessageService<>), typeof(ProtoMessageService<>));
+            services.AddSingleton(typeof(IMessageService<>), typeof(EasyProtoMessageService<>));
             services.AddSingleton<IServer,CandidateServer>();
         }
 

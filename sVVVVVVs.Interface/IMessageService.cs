@@ -8,7 +8,7 @@ namespace sVVVVVVs.Interface
             World = 1,
             Join = 2,
         }
-    public interface IMessageService<TUser> where TUser : User ,ISendMessage
+    public interface IMessageService<TUser> where TUser : User , ISendMessage
     {
         Task Deal(TUser from, byte[] message);
     }

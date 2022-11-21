@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using sVVVVVVs.Interface;
 using sVVVVVVs.Model;
 using sVVVVVVs.Proto.Model;
+using sVVVVVVs.Proto.Proto;
 using sVVVVVVs.Server.Model;
 
 namespace sVVVVVVs.Server.Service
@@ -85,4 +89,90 @@ namespace sVVVVVVs.Server.Service
             return Task.Run(() => to.Send(message));
         }
     }
+
+    public class EasyProtoMessageService<TUser> : IMessageService<TUser> where TUser : User, ISendMessage
+    {
+        private readonly IRoomService roomService;
+        public EasyProtoMessageService(IRoomService roomService)
+        {
+            this.roomService = roomService;
+        }
+        public Task Deal(TUser from, byte[] message)
+        {
+            return Task.Run(async () =>
+            {
+                PayLoad payload = ProtoBuf.Serializer.Deserialize<PayLoad>(new ReadOnlyMemory<byte>(message));
+                switch (payload.Type)
+                {
+                    case PayLoad.MessageType.World:
+                    {
+                        var world = payload.World;
+                        if (world == null)
+                        {
+                            return;
+                        }
+
+                        if (!from.IsHost)
+                        {
+                            Room room = new NewProtoRoom(from, world);
+                            await roomService.Create(from, room);
+                        }
+
+                        await SendTo(from, Serialize(payload));
+                        break;
+                    }
+                    case PayLoad.MessageType.Join:
+                    {
+                        var join = payload.Join;
+                        if (join == null) { return; }
+                        if (new Func<bool>(
+                                () =>
+                                {
+                                    if (string.IsNullOrEmpty(join.Id))
+                                    {
+                                        join.Id = string.Empty;
+                                        return false;
+                                    }
+                                    var room = roomService.GetRoom(join.Id);
+                                    if (room == null || room.Password != join.Password)
+                                    {
+                                        join.Id = string.Empty;
+                                        return false;
+                                    }
+                                    roomService.Join(from, room).Wait();
+                                    SendTo((TUser)room.Host, Serialize(payload)).Wait();
+                                    return true;
+                                }).Invoke() == false)
+                        {
+                            await SendTo(from, Serialize(payload));
+                        }
+                        break;
+                    }
+                    case PayLoad.MessageType.Rooms:
+                    {
+                        payload.RoomList = new RoomList();
+                        payload.RoomList.Rooms = roomService.Rooms
+                            .ToDictionary(k => k.Key, 
+                                v => v.Value.Name);
+                        await SendTo(from, Serialize(payload));
+                        break;
+                    }
+
+                }
+            });
+        }
+
+        private byte[] Serialize<T>(T instance)
+        { 
+            using var ret = new MemoryStream();
+            ProtoBuf.Serializer.Serialize(ret, instance);
+            return ret.ToArray();
+        }
+
+        private Task SendTo(TUser to, byte[] message)
+        {
+            return Task.Run(() => to.Send(message));
+        }
+    }
+
 }

@@ -12,6 +12,7 @@ namespace sVVVVVVs.Model
         }
         public string Id { get; } = Guid.NewGuid().ToString();
         public User Host { get; }
+        public abstract string Name { get; }
         public abstract string Password { get; }
         public abstract int PlayerCount { get; set; }
         public abstract int MaximumPlayer { get; }

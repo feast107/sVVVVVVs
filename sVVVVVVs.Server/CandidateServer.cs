@@ -26,6 +26,8 @@ namespace sVVVVVVs.Server
             Server.Start(client =>
             {
                 var user = new WsUser(client);
+
+
                 userService.OnLine(user);
                 client.OnMessage += message =>
                 {

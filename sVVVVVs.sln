@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sVVVVVVs.Proto", "sVVVVVVs.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sVVVVVVs.Server", "sVVVVVVs.Server\sVVVVVVs.Server.csproj", "{F3ACE979-330C-4DD8-BBFB-F6310F30A098}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sVVVVVVs.Core", "sVVVVVVs.Core\sVVVVVVs.Core.csproj", "{F8430BD2-B8DF-4395-A453-DECECB1F0EA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sVVVVVVs.Client", "sVVVVVVs.Client\sVVVVVVs.Client.csproj", "{1EE102CB-8BB3-4868-9997-9628FB51895B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{F3ACE979-330C-4DD8-BBFB-F6310F30A098}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3ACE979-330C-4DD8-BBFB-F6310F30A098}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3ACE979-330C-4DD8-BBFB-F6310F30A098}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8430BD2-B8DF-4395-A453-DECECB1F0EA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8430BD2-B8DF-4395-A453-DECECB1F0EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8430BD2-B8DF-4395-A453-DECECB1F0EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8430BD2-B8DF-4395-A453-DECECB1F0EA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EE102CB-8BB3-4868-9997-9628FB51895B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE102CB-8BB3-4868-9997-9628FB51895B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE102CB-8BB3-4868-9997-9628FB51895B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE102CB-8BB3-4868-9997-9628FB51895B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

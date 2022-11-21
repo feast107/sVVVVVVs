@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\sVVVVVVs.Interface\sVVVVVVs.Interface.csproj" />
     <ProjectReference Include="..\sVVVVVVs.Model\sVVVVVVs.Model.csproj" />
   </ItemGroup>
 

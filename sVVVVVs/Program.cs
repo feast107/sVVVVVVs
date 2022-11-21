@@ -11,8 +11,9 @@ namespace sVVVVVVs
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            host.Run();
             host.Services.GetRequiredService<IServer>().Start();
+            Client.Program.Test();
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

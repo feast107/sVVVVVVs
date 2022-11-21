@@ -11,7 +11,7 @@ namespace sVVVVVVs.Server.Model
         {
             Client = client;
         }
-        public IWebSocketConnection Client { get; }
+        private IWebSocketConnection Client { get; }
         public Task Send(byte[] message)
         {
             return Client.Send(message);

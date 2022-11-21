@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 using sVVVVVVs.Interface;
 using sVVVVVVs.Model;
-using sVVVVVVs.Server.Model;
 
-namespace sVVVVVVs.Server.Service
+namespace sVVVVVVs.Core
 {
     public class UserService : IUserService
     {
