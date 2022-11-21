@@ -25,19 +25,19 @@ namespace sVVVVVVs.Proto.Model
     {
         public NewProtoRoom(User host, Proto.World world) : base(host)
         {
-            this.world = world;
+            World = world;
             world.Id = Id;
         }
 
-        private readonly Proto.World world;
+        public readonly Proto.World World;
 
-        public override int MaximumPlayer => world.MaxPlayerCount;
-        public override string Name => world.Name;
-        public override string Password => world.Password;
+        public override int MaximumPlayer => World.MaxPlayerCount;
+        public override string Name => World.Name;
+        public override string Password => World.Password;
         public override int PlayerCount
         {
-            get => world.PlayerCount;
-            set => world.PlayerCount = value;
+            get => World.PlayerCount;
+            set => World.PlayerCount = value;
         }
     }
 }

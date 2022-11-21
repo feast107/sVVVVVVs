@@ -19,11 +19,9 @@ namespace sVVVVVVs.Core
         {
             return Task.Run(() =>
             {
-                if (user.IsHost!)
-                {
-                    user.Room = room;
-                    Rooms.Add(room.Id, room);
-                }
+                if (user.IsHost) return user.Room;
+                user.Room = room;
+                Rooms.Add(room.Id, room);
                 return user.Room;
             });
         }

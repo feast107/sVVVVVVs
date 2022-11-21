@@ -9,10 +9,11 @@ namespace sVVVVVVs.Proto.Proto
     {
         public enum MessageType
         {
-            World = 0,
-            Join = 1,
-            Rooms = 2,
-            SyncStatus = 3,
+            None = 0,
+            World = 1,
+            WorldList = 2,
+            Join = 3,
+            SyncStatus = 4,
         }
 
         [ProtoMember(1)] public string Id { get; set; } = Guid.NewGuid().ToString();
@@ -23,17 +24,12 @@ namespace sVVVVVVs.Proto.Proto
 
         [ProtoMember(4)] public Join Join { get; set; }
 
-        [ProtoMember(5)] public RoomList RoomList { get; set; }
+        [ProtoMember(5)] public WorldList WorldList { get; set; }
 
-        [ProtoMember(6)] public SyncStatus SyncStatus { get; set; }
+        [ProtoMember(6)] public Synchronize SyncStatus { get; set; }
     }
 
-    [ProtoContract]
-    public class RoomList
-    {
-        [ProtoMember(1)]
-        public Dictionary<string, string> Rooms { get; set; } = new Dictionary<string, string>();
-    }
+   
 
     [ProtoContract]
     public class World
@@ -60,7 +56,14 @@ namespace sVVVVVVs.Proto.Proto
     }
 
     [ProtoContract]
-    public class SyncStatus
+    public class WorldList
+    {
+        [ProtoMember(1)]
+        public Dictionary<string, string> Worlds { get; set; } = new Dictionary<string, string>();
+    }
+
+    [ProtoContract]
+    public class Synchronize
     {
         [ProtoMember(1)] public string Id { get; set; }
         [ProtoMember(2)] public int PlayerCount { get; set; }

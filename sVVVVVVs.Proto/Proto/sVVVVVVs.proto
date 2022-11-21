@@ -1,5 +1,24 @@
 syntax = "proto3";
 
+message PayLoad{
+    enum MessageType{
+        None = 0;
+        world = 1;
+        worldList = 2;
+        join = 3;
+        syncStatus = 4;
+    }
+    string id = 1;//Message Id for distinction 
+    
+    MessageType type = 2;
+
+    World world = 3;
+    Join join = 4;
+    WorldList worldList = 5;
+    Synchronize syncStatus = 6;
+
+}
+
 message World {//create a world
     string id = 1;//send null receive worldId
     string name = 2;
@@ -11,11 +30,11 @@ message World {//create a world
 message Join {//join a world
     string id = 1;//send worldId , return empty if fail
     string password = 2;//optional password (strictly match)
-    string candidate = 3;//send ICE candidate
+    string iceCandidate = 3;//send ICE candidate
 }
 
-message RoomList{// send rooms null return real
-    map<string,string> rooms = 1;//key:roomId value:roomName
+message WorldList{// send any return real
+    map<string,string> worlds = 1;//key:roomId value:roomName
 }
 
 message Synchronize {

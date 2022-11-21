@@ -111,13 +111,12 @@ namespace sVVVVVVs.Server.Service
                         {
                             return;
                         }
-
                         if (!from.IsHost)
                         {
-                            Room room = new NewProtoRoom(from, world);
-                            await roomService.Create(from, room);
+                            Room room = new NewProtoRoom(from, world); 
+                            room = await roomService.Create(from, room);
+                            payload.World = ((NewProtoRoom)room).World;
                         }
-
                         await SendTo(from, Serialize(payload));
                         break;
                     }
@@ -125,6 +124,7 @@ namespace sVVVVVVs.Server.Service
                     {
                         var join = payload.Join;
                         if (join == null) { return; }
+
                         if (new Func<bool>(
                                 () =>
                                 {
@@ -133,8 +133,11 @@ namespace sVVVVVVs.Server.Service
                                         join.Id = string.Empty;
                                         return false;
                                     }
+
                                     var room = roomService.GetRoom(join.Id);
-                                    if (room == null || room.Password != join.Password)
+                                    if (room == null ||
+                                        room.PlayerCount >= room.MaximumPlayer ||
+                                        room.Password != join.Password)
                                     {
                                         join.Id = string.Empty;
                                         return false;
@@ -148,16 +151,25 @@ namespace sVVVVVVs.Server.Service
                         }
                         break;
                     }
-                    case PayLoad.MessageType.Rooms:
+                    case PayLoad.MessageType.WorldList:
                     {
-                        payload.RoomList = new RoomList();
-                        payload.RoomList.Rooms = roomService.Rooms
-                            .ToDictionary(k => k.Key, 
-                                v => v.Value.Name);
+                        payload.WorldList = new ()
+                        {
+                            Worlds = roomService.Rooms
+                                .ToDictionary(k => k.Key, 
+                                    v => v.Value.Name)
+                        };
                         await SendTo(from, Serialize(payload));
                         break;
                     }
-
+                    case PayLoad.MessageType.SyncStatus:
+                    {
+                        var sync = payload.SyncStatus;
+                        if(sync == null || string.IsNullOrEmpty(sync.Id)) { return; }
+                        roomService.GetRoom(sync.Id).PlayerCount = sync.PlayerCount;
+                        break;
+                    }
+                    default: return;
                 }
             });
         }
