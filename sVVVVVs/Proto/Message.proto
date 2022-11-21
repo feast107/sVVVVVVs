@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+message World {//create a world
+    string id = 1;//send null receive worldId
+    string name = 2;
+    string password = 3;
+    int32 playerCount = 4;
+    int32 maxPlayerCount = 5;
+}
+
+message Join {//join a world
+    string id = 1;//send worldId , return empty if fail
+    string password = 2;//optional password (strictly match)
+    string candidate = 3;//send ICE candidate
+}
+
+message Synchronize {
+    string id = 1;//worldId
+    int32 playerCount = 2;
+}

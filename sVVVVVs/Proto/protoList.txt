@@ -1,0 +1,1 @@
+.\protoc.exe -I D:\Development\Git\sVVVVVs\sVVVVVs\Proto  Message.proto    --csharp_out=D:\Development\Git\sVVVVVs\sVVVVVs\Proto
