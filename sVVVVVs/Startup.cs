@@ -9,8 +9,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using sVVVVVVs.Interface;
-using sVVVVVVs.Service;
-using sVVVVVVs.Interface;
+using sVVVVVVs.Server;
+using sVVVVVVs.Server.Model;
+using sVVVVVVs.Server.Service;
 
 namespace sVVVVVVs
 {
@@ -20,10 +21,10 @@ namespace sVVVVVVs
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IMessageService, MessageService>();
-            services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IRoomService, RoomService>();
-            services.AddSingleton<CandidateServer>();
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton(typeof(IMessageService<>), typeof(ProtoMessageService<>));
+            services.AddSingleton<IServer,CandidateServer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

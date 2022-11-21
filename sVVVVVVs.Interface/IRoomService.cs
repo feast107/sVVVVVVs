@@ -6,9 +6,9 @@ namespace sVVVVVVs.Interface
 {
     public interface IRoomService
     {
-        Dictionary<string,Room> Rooms { get; }
+        Dictionary<string, Room> Rooms { get; }
         Room GetRoom(string roomId);
-        Task Create(User user, World world);
-        Task Join(User user,Join join);
+        Task<Room> Create(User user, Room room);
+        Task<Room> Join(User user, Room join);
     }
 }

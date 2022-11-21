@@ -6,7 +6,7 @@ namespace sVVVVVVs.Interface
 {
     public interface IUserService
     {
-        Dictionary<string,User> Users { get; }
+        Dictionary<string, User> Users { get; }
         User GetUser(string userId);
         Task OnLine(User user);
         Task OffLine(User user);

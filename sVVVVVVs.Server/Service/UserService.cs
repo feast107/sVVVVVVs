@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ProtoBuf.Serializers;
 using sVVVVVVs.Interface;
 using sVVVVVVs.Model;
+using sVVVVVVs.Server.Model;
 
-namespace sVVVVVVs.Service
+namespace sVVVVVVs.Server.Service
 {
     public class UserService : IUserService
     {
-        private readonly IMessageService messageService;
         private readonly IRoomService roomService;
-        public UserService(IMessageService messageService, IRoomService roomService)
+        public UserService(IRoomService roomService)
         {
-            this.messageService = messageService;
             this.roomService = roomService;
         }
 
-        public Dictionary<string, User> Users { get; } = new ();
+        public Dictionary<string, User> Users { get; } = new Dictionary<string, User>();
         public User GetUser(string userId)
         {
             return Users[userId];

@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 namespace sVVVVVVs.Model
 {
-    public class Room
+    public abstract class Room
     {
-        public Room(User host,World world)
+        protected Room(User host)
         {
             Host = host;
-            World = world;
-            world.Id = Id;
         }
         public string Id { get; } = Guid.NewGuid().ToString();
         public User Host { get; }
-        public World World { get; }
+        public abstract string Password { get; }
+        public abstract int PlayerCount { get; set; }
+        public abstract int MaximumPlayer { get; }
     }
 }
